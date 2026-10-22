@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WeJoob — Des clients près de chez vous, des outils gratuits pour votre activité</title>
+<meta name="description" content="WeJoob se prépare à Suresnes pour aider les professionnels de proximité : ménage, jardinage, petits travaux, aide à domicile. Inscription gratuite et outils gratuits.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14284B;--gold:#C9A227;--golddk:#7A5F08;--soft:#FFF6DB;--blue:#EAF0FA;--bg:#FBFCFE;--ink:#1D2638;--mute:#4D586D;--line:#D8DFEA;--w:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.65;color:var(--ink);background:var(--bg)}
+h1,h2,h3{margin:0;color:var(--navy);line-height:1.2;font-weight:800}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.btn{display:inline-block;min-height:50px;background:var(--gold);color:var(--navy);font:inherit;font-weight:800;padding:12px 28px;border-radius:99px;text-decoration:none;border:0;cursor:pointer}
+.btn:hover{background:#D8B335}
+.btn.ghost{background:transparent;border:2px solid var(--navy);color:var(--navy)}
+.btn.ghost:hover{background:var(--blue)}
+.btn[disabled]{opacity:.6;cursor:wait}
+header{padding:18px 0}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{font-weight:800;font-size:28px;color:var(--navy);text-decoration:none}
+.brand b{color:var(--gold)}
+header .btn{min-height:44px;padding:8px 20px;font-size:16px}
+.hero{padding:34px 0 64px}
+.hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:center}
+.pill{display:inline-block;background:var(--soft);color:var(--golddk);font-weight:700;border-radius:99px;padding:5px 16px;font-size:16px;margin-bottom:18px}
+.hero h1{font-size:clamp(34px,5vw,52px);margin-bottom:18px}
+.hero p{color:var(--mute);font-size:20px;margin:0 0 28px;max-width:54ch}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.jobs .job{background:var(--blue);border-radius:20px;padding:18px 16px;font-weight:700;color:var(--navy);display:flex;align-items:center;gap:12px;line-height:1.25}
+.jobs .job:nth-child(3n){background:var(--soft)}
+.jobs .job:last-child{grid-column:1/-1}
+.jobs span{font-size:30px}
+section{padding:60px 0}
+section h2{font-size:clamp(26px,3.5vw,36px);margin-bottom:12px}
+.lead{color:var(--mute);max-width:60ch;margin:0 0 30px;font-size:19px}
+.alt{background:var(--w);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.three h3{font-size:21px;margin-bottom:6px}
+.three p{margin:0;color:var(--mute)}
+.three .ic{font-size:34px;display:block;margin-bottom:8px}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px}
+.tabs button{font:inherit;font-weight:700;min-height:48px;padding:10px 20px;border-radius:99px;border:2px solid var(--navy);background:var(--w);color:var(--navy);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--navy);color:var(--w)}
+.panel{background:var(--w);border:1px solid var(--line);border-radius:20px;padding:28px}
+.panel[hidden]{display:none}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 22px}
+.f{display:flex;flex-direction:column;gap:6px}
+.f.full{grid-column:1/-1}
+label{font-weight:700;color:var(--navy);font-size:17px}
+label small{font-weight:400;color:var(--mute)}
+input,select,textarea{font:inherit;min-height:50px;padding:10px 14px;border:2px solid #A9B4C7;border-radius:12px;background:var(--w);color:var(--ink);width:100%}
+textarea{min-height:90px;resize:vertical}
+.res{margin-top:20px;background:var(--soft);border-radius:16px;padding:18px 22px;display:none}
+.res.on{display:block}
+.res .big{font-size:32px;font-weight:800;color:var(--navy);line-height:1.2}
+.res p{margin:6px 0 0}
+.note{font-size:15px;color:var(--mute);margin:14px 0 0}
+#devis-out{display:none;margin-top:22px;border:1px solid var(--line);border-radius:12px;padding:26px;background:var(--w);font-size:16px}
+#devis-out.on{display:block}
+#devis-out h3{font-size:26px}
+#devis-out table{width:100%;border-collapse:collapse;margin:16px 0}
+#devis-out th,#devis-out td{border-bottom:1px solid var(--line);padding:8px;text-align:left}
+#devis-out .r{text-align:right}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.checks{list-style:none;margin:0;padding:0}
+.checks li{padding:8px 0 8px 36px;position:relative}
+.checks li::before{content:"✓";position:absolute;left:0;top:8px;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800;text-align:center;line-height:24px;font-size:15px}
+.quote{background:var(--blue);border-radius:20px;padding:28px}
+.quote p{margin:0 0 10px}
+form.sub{background:var(--w);border:1px solid var(--line);border-radius:20px;padding:30px;display:grid;grid-template-columns:1fr 1fr;gap:18px 22px}
+.hp{position:absolute;left:-9999px}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:var(--mute);font-weight:400}
+.consent input{width:24px;height:24px;min-height:0;margin-top:2px;flex:none}
+.msg{grid-column:1/-1;padding:14px 18px;border-radius:12px;display:none;font-weight:600}
+.msg.ok{display:block;background:#E5F4E8;color:#1B5A2B}
+.msg.err{display:block;background:#FBE8E5;color:#8A2418}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+summary{cursor:pointer;font-weight:700;color:var(--navy);font-size:19px}
+details p{margin:10px 0 0;color:var(--mute);max-width:66ch}
+footer{background:var(--navy);color:#DCE3F0;padding:36px 0;font-size:16px}
+footer p{margin:0 0 10px;max-width:78ch}
+.invest{background:var(--blue)}
+.full{grid-column:1/-1}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;border:0;padding:0;margin:0}
+.opts legend{font-weight:700;color:var(--navy);font-size:17px;padding:0;margin-bottom:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:17px;color:var(--ink)}
+.opt input{width:22px;height:22px;min-height:0;margin-top:3px;flex:none}
+input[type=file]{padding:12px 14px;min-height:56px;background:#F4F6FA}
+.legal{font-size:15px;color:var(--mute);margin:16px 0 0;max-width:72ch}
+.flinks{margin:0 0 12px}
+.flinks a{margin-right:18px}
+header nav{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:16px}
+header nav a:not(.btn){font-weight:700;color:var(--navy);text-decoration:none}
+header nav a:not(.btn):hover{text-decoration:underline}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.cards.four{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--w);border:1px solid var(--line);border-radius:20px;padding:22px}
+.card h3{font-size:20px;margin-bottom:6px}
+.card p{margin:0;color:var(--mute)}
+.card .ic{font-size:30px;display:block;margin-bottom:6px}
+.ambass{background:var(--navy);color:#DCE3F0}
+.ambass h2,.ambass h3{color:#fff}
+.ambass .lead{color:#DCE3F0}
+.ambass .card{background:#1E3563;border-color:#33508A}
+.ambass .card p{color:#DCE3F0}
+.ambass .sub h3{color:var(--navy)}
+.lnk{background:none;border:0;color:#8A2418;font:inherit;font-weight:800;cursor:pointer;padding:4px 8px}
+table.carnet{width:100%;border-collapse:collapse;margin-top:18px;font-size:16px}
+table.carnet th,table.carnet td{border-bottom:1px solid var(--line);padding:8px;text-align:left}
+table.carnet .r{text-align:right}
+.tbtns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.tbtns .btn{min-height:44px;padding:8px 20px;font-size:16px}
+.prog{font-weight:800;color:var(--navy);margin:0 0 12px}
+.todo{display:grid;gap:10px}
+.todo .opt{background:var(--blue);border-radius:14px;padding:12px 14px}
+[hidden]{display:none!important}
+html{scroll-padding-top:84px}
+header{position:sticky;top:0;z-index:20;background:rgba(251,252,254,.97);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.burger{display:none;min-height:44px;min-width:44px;border:2px solid var(--navy);border-radius:12px;background:var(--w);color:var(--navy);font-size:22px;cursor:pointer}
+header nav a[aria-current]:not(.btn){box-shadow:0 3px 0 var(--gold)}
+.job{border:2px solid transparent;font:inherit;text-align:left;cursor:pointer}
+.job:hover{border-color:var(--gold)}
+.job[aria-pressed=true]{border-color:var(--navy);box-shadow:0 0 0 3px rgba(201,162,39,.45)}
+.hint{margin-top:14px;background:var(--w);border:1px solid var(--line);border-radius:20px;padding:18px 20px}
+.hint p{margin:0 0 10px;font-size:17px;color:var(--ink)}
+.hint .btn{min-height:44px;padding:8px 20px;font-size:16px}
+.memberbar{background:var(--soft);border:2px solid var(--gold);border-radius:16px;padding:12px 18px;margin-bottom:18px;font-weight:700;color:var(--navy)}
+.badge{display:inline-block;background:var(--navy);color:var(--gold);border-radius:99px;padding:3px 12px;font-size:15px;margin-left:6px}
+.lockmsg{text-align:center;padding:26px 10px}
+.lockmsg .ic{font-size:40px;display:block}
+.lockmsg p{color:var(--mute);max-width:52ch;margin:8px auto 18px}
+body:not(.member) .panel[data-lock]>:not(.lockmsg){display:none}
+body.member .lockmsg{display:none}
+body:not(.member) [role=tab][data-lock]::after{content:" 🔒"}
+.barbg{height:10px;background:var(--blue);border-radius:99px;overflow:hidden}
+.bar{height:100%;background:var(--gold);border-radius:99px;transition:width .35s}
+.step{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:18px 22px}
+.rcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.rc{position:relative;display:block}
+.rc input{position:absolute;opacity:0;inset:0;width:100%;height:100%;min-height:0;cursor:pointer}
+.rc span{display:block;height:100%;border:2px solid #A9B4C7;border-radius:14px;padding:12px 14px;background:var(--w);font-weight:800;color:var(--navy)}
+.rc small{display:block;font-weight:600;color:var(--mute);font-size:15px}
+.rc input:checked+span{border-color:var(--gold);background:var(--soft);box-shadow:0 0 0 3px rgba(201,162,39,.4)}
+.rc input:focus-visible+span{outline:3px solid var(--navy)}
+fieldset.grp{grid-column:1/-1;border:0;padding:0;margin:0;min-width:0}
+.grp legend{font-weight:800;color:var(--navy);font-size:18px;padding:0;margin-bottom:10px}
+input[type=range]{min-height:0;padding:0;accent-color:var(--gold);height:34px}
+.out{font-size:26px;font-weight:800;color:var(--navy)}
+textarea.gen{min-height:130px}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media(max-width:820px){
+ .cards,.cards.four,.step{grid-template-columns:1fr}
+ .burger{display:inline-flex;align-items:center;justify-content:center}
+ header nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--w);flex-direction:column;align-items:stretch;gap:0;padding:6px 22px 18px;border-bottom:1px solid var(--line);font-size:18px}
+ header.open nav{display:flex}
+ header nav a:not(.btn){padding:12px 0}
+ header nav .btn{text-align:center;margin-top:8px}
+ .opts{grid-template-columns:1fr}
+ .hero .wrap,.two,.three{grid-template-columns:1fr;gap:30px}
+ .grid,form.sub{grid-template-columns:1fr}
+ form.sub,.panel{padding:20px}
+}
+@media print{
+ body *{visibility:hidden}
+ #devis-out,#devis-out *{visibility:visible}
+ #devis-out{position:absolute;left:0;top:0;width:100%;border:0}
+}
+</style>
+</head>
+<body>
+
+<header id="hd"><div class="wrap">
+  <a class="brand" href="#">We<b>Joob</b></a>
+  <button class="burger" id="burger" aria-expanded="false" aria-label="Ouvrir le menu">☰</button>
+  <nav id="nav">
+    <a href="#outils">Outils</a>
+    <a href="#ambassadeurs">Ambassadeurs</a>
+    <a href="#investisseurs">Investisseurs</a>
+    <a href="#equipe">Équipe</a>
+    <a class="btn" href="#inscription">Je m’inscris</a>
+  </nav>
+</div></header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <div>
+    <span class="pill">En préparation à Suresnes</span>
+    <h1>Vous faites un métier précieux. Nous voulons vous faciliter la vie.</h1>
+    <p>Ménage, jardinage, petits travaux, aide à domicile… WeJoob se prépare pour mettre en relation les habitants de Suresnes et les professionnels de proximité. Rejoignez-nous dès maintenant : c’est gratuit et sans engagement.</p>
+    <div class="btns">
+      <a class="btn" href="#inscription">Je m’inscris</a>
+      <a class="btn ghost" href="#outils">Essayer les outils gratuits</a>
+    </div>
+  </div>
+  <div>
+    <div class="jobs" aria-label="Choisissez votre métier">
+      <button type="button" class="job" aria-pressed="false" data-m="Ménage et repassage" data-t="Présentez vos disponibilités, vos tarifs et votre sérieux à des habitants près de chez vous."><span aria-hidden="true">🧹</span>Ménage et repassage</button>
+      <button type="button" class="job" aria-pressed="false" data-m="Jardinage" data-t="Tonte, taille, entretien : décrivez vos prestations, vos zones d’intervention et vos saisons de travail."><span aria-hidden="true">🌿</span>Jardinage</button>
+      <button type="button" class="job" aria-pressed="false" data-m="Petits travaux / bricolage" data-t="Montage, peinture, réparations : dites ce que vous savez faire et fixez vous-même vos tarifs."><span aria-hidden="true">🔧</span>Petits travaux</button>
+      <button type="button" class="job" aria-pressed="false" data-m="Aide au déménagement" data-t="Chargement, manutention, transport : indiquez vos disponibilités et le matériel dont vous disposez."><span aria-hidden="true">📦</span>Aide au déménagement</button>
+      <button type="button" class="job" aria-pressed="false" data-m="Aide à domicile" data-t="Courses, compagnie, aide au quotidien : proposez vos services de proximité en toute clarté."><span aria-hidden="true">🤝</span>Aide à domicile et services de proximité</button>
+    </div>
+    <div class="hint" id="job-hint" aria-live="polite"><p id="job-txt">👆 Touchez votre métier pour voir comment WeJoob peut vous aider.</p><a class="btn" id="job-cta" href="#inscription" hidden>Je m’inscris</a></div>
+  </div>
+</div></div>
+
+<section class="alt"><div class="wrap">
+  <h2>Ce que nous construisons avec vous</h2>
+  <p class="lead">WeJoob est en cours de création. Nous la fabriquons avec les professionnels, pour qu’elle soit simple et utile au quotidien.</p>
+  <div class="three">
+    <div><span class="ic" aria-hidden="true">📍</span><h3>Être trouvé près de chez vous</h3><p>Des habitants de votre quartier qui cherchent quelqu’un de confiance, et un profil qui présente votre travail.</p></div>
+    <div><span class="ic" aria-hidden="true">🔒</span><h3>Être payé sans courir après</h3><p>Le client règle sur WeJoob, l’argent est mis de côté en sécurité et vous est versé quand la mission est terminée.</p></div>
+    <div><span class="ic" aria-hidden="true">🙌</span><h3>Rester libre</h3><p>Vous restez indépendant(e) : vous choisissez vos missions, vos horaires et votre façon de travailler.</p></div>
+  </div>
+</div></section>
+
+<section id="outils"><div class="wrap">
+  <h2>Des outils gratuits, dès maintenant</h2>
+  <p class="lead">Deux outils sont ouverts à tous. Tous les autres sont <strong>débloqués gratuitement</strong> dès votre inscription : devis et factures, carnet de missions, démarches et messages prêts à envoyer.</p>
+  <div class="memberbar" id="memberbar" hidden></div>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t1" aria-selected="true" aria-controls="p1">Mon prix de l’heure</button>
+    <button role="tab" id="t2" aria-selected="false" aria-controls="p2">Ce qu’il me reste</button>
+    <button data-lock role="tab" id="t3" aria-selected="false" aria-controls="p3">Devis et facture</button>
+    <button data-lock role="tab" id="t4" aria-selected="false" aria-controls="p4">Mon carnet de missions</button>
+    <button data-lock role="tab" id="t5" aria-selected="false" aria-controls="p5">Pour démarrer</button>
+    <button data-lock role="tab" id="t6" aria-selected="false" aria-controls="p6">Messages prêts à envoyer</button>
+  </div>
+
+  <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+    <h3 style="margin-bottom:6px">Combien dois-je facturer de l’heure ?</h3>
+    <p class="note" style="margin:0 0 18px;font-size:17px">Dites ce que vous voulez gagner : nous calculons le prix de l’heure qui le permet.</p>
+    <div class="grid">
+      <div class="f"><label for="a-net">Ce que je veux gagner par mois <small>(€, une fois tout payé)</small></label><input id="a-net" type="number" inputmode="decimal" min="0" value="1500"></div>
+      <div class="f"><label for="a-h">Heures facturées par mois</label><input id="a-h" type="number" inputmode="decimal" min="1" value="100"></div>
+      <div class="f"><label for="a-f">Frais par mois <small>(transport, produits, matériel, €)</small></label><input id="a-f" type="number" inputmode="decimal" min="0" value="150"></div>
+      <div class="f"><label for="a-t">Mon activité</label><select id="a-t" class="rate"><option value="0.212">Ménage, jardinage, petits travaux, déménagement</option><option value="0.256">Autre prestation de service</option></select></div>
+    </div>
+    <div class="res" id="a-res" aria-live="polite"></div>
+    <p class="note">Estimation à titre indicatif pour un micro-entrepreneur (taux de cotisations 2026). Elle ne tient compte ni de l’impôt sur le revenu ni des aides au démarrage. Vérifiez votre situation sur autoentrepreneur.urssaf.fr.</p>
+  </div>
+
+  <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+    <h3 style="margin-bottom:6px">Combien me reste-t-il vraiment ?</h3>
+    <p class="note" style="margin:0 0 18px;font-size:17px">Entrez ce que vous avez encaissé ce mois-ci : voyez ce qui part en cotisations et ce qui reste dans votre poche.</p>
+    <div class="grid">
+      <div class="f"><label for="b-ca">Encaissé ce mois-ci <small>(€)</small></label><input id="b-ca" type="number" inputmode="decimal" min="0" value="2000"></div>
+      <div class="f"><label for="b-f">Frais du mois <small>(€)</small></label><input id="b-f" type="number" inputmode="decimal" min="0" value="150"></div>
+      <div class="f full"><label for="b-t">Mon activité</label><select id="b-t" class="rate"><option value="0.212">Ménage, jardinage, petits travaux, déménagement</option><option value="0.256">Autre prestation de service</option></select></div>
+    </div>
+    <div class="res" id="b-res" aria-live="polite"></div>
+    <p class="note">Estimation à titre indicatif (taux de cotisations 2026 d’un micro-entrepreneur, sans impôt sur le revenu).</p>
+  </div>
+
+  <div class="panel" data-lock id="p3" role="tabpanel" aria-labelledby="t3" hidden>
+    <h3 style="margin-bottom:6px">Faire un devis ou une facture</h3>
+    <p class="note" style="margin:0 0 18px;font-size:17px">Remplissez, puis imprimez ou enregistrez en PDF pour l’envoyer à votre client.</p>
+    <div class="grid">
+      <div class="f"><label for="d-me">Mon nom (ou nom de mon entreprise)</label><input id="d-me" autocomplete="name"></div>
+      <div class="f"><label for="d-siret">Mon SIRET <small>(si j’en ai un)</small></label><input id="d-siret" inputmode="numeric"></div>
+      <div class="f"><label for="d-tel">Mon téléphone</label><input id="d-tel" type="tel"></div>
+      <div class="f"><label for="d-cl">Nom du client</label><input id="d-cl"></div>
+      <div class="f full"><label for="d-adr">Adresse de la mission</label><input id="d-adr"></div>
+      <div class="f full"><label for="d-desc">Ce que je vais faire</label><textarea id="d-desc" placeholder="Ex. Ménage complet d’un appartement de 3 pièces"></textarea></div>
+      <div class="f"><label for="d-h">Nombre d’heures</label><input id="d-h" type="number" inputmode="decimal" min="0" value="3"></div>
+      <div class="f"><label for="d-p">Prix de l’heure <small>(€)</small></label><input id="d-p" type="number" inputmode="decimal" min="0" value="25"></div>
+      <div class="f"><label for="d-fr">Déplacement ou matériel <small>(€, facultatif)</small></label><input id="d-fr" type="number" inputmode="decimal" min="0" value="0"></div>
+      <div class="f"><label for="d-v">Devis valable (jours)</label><input id="d-v" type="number" inputmode="numeric" min="1" value="30"></div>
+      <label class="consent full" style="grid-column:1/-1"><input type="checkbox" id="d-tva" checked><span>Je suis micro-entrepreneur et je ne facture pas la TVA</span></label>
+      <div class="f"><label for="d-type">Je veux faire</label><select id="d-type"><option value="d">Un devis</option><option value="f">Une facture</option></select></div>
+      <div class="f"><label>&nbsp;</label><button class="btn" type="button" id="d-go">Créer mon document</button></div>
+    </div>
+    <div id="devis-out"></div>
+    <div class="f full" id="d-print" style="display:none;margin-top:16px"><button class="btn ghost" type="button" onclick="window.print()">Imprimer ou enregistrer en PDF</button></div>
+    <p class="note">Modèle simple à adapter à votre situation. Relisez-le avant de l’envoyer.</p>
+  </div>
+
+  <div class="panel" data-lock id="p4" role="tabpanel" aria-labelledby="t4" hidden>
+    <h3 style="margin-bottom:6px">Mon carnet de missions</h3>
+    <p class="note" style="margin:0 0 18px;font-size:17px">Notez chaque mission : le total se calcule tout seul. Vos données restent sur cet appareil, nous ne les voyons pas.</p>
+    <div class="grid">
+      <div class="f"><label for="c-d">Date</label><input id="c-d" type="date"></div>
+      <div class="f"><label for="c-c">Client</label><input id="c-c"></div>
+      <div class="f"><label for="c-m">Montant encaissé <small>(€)</small></label><input id="c-m" type="number" inputmode="decimal" min="0"></div>
+      <div class="f"><label for="c-f">Frais <small>(€, facultatif)</small></label><input id="c-f" type="number" inputmode="decimal" min="0"></div>
+      <div class="f full"><button class="btn" type="button" id="c-add">Ajouter cette mission</button></div>
+    </div>
+    <div class="res" id="c-sum" aria-live="polite"></div>
+    <div style="overflow-x:auto"><table class="carnet"><thead><tr><th>Date</th><th>Client</th><th class="r">Encaissé</th><th class="r">Frais</th><th></th></tr></thead><tbody id="c-body"></tbody></table></div>
+    <div class="tbtns"><button class="btn ghost" type="button" id="c-csv">Télécharger (Excel)</button><button class="btn ghost" type="button" id="c-clear">Tout effacer</button></div>
+    <p class="note">Estimation avec le taux de cotisations 2026 de 21,2 % (micro-entrepreneur, ménage, jardinage, petits travaux), sans impôt sur le revenu.</p>
+  </div>
+
+  <div class="panel" data-lock id="p5" role="tabpanel" aria-labelledby="t5" hidden>
+    <h3 style="margin-bottom:6px">Pour démarrer mon activité</h3>
+    <p class="note" style="margin:0 0 18px;font-size:17px">Une liste simple pour avancer pas à pas. Cochez ce qui est fait : votre progression est gardée sur cet appareil.</p>
+    <p class="prog" id="k-prog"></p>
+    <div class="todo" id="k-list"></div>
+    <p class="note">Cette liste est un repère. Pour les démarches officielles, utilisez les sites indiqués (guichet des formalités des entreprises et URSSAF).</p>
+  </div>
+
+  <div class="panel" data-lock id="p6" role="tabpanel" aria-labelledby="t6" hidden>
+    <h3 style="margin-bottom:6px">Messages prêts à envoyer</h3>
+    <p class="note" style="margin:0 0 18px;font-size:17px">Choisissez une situation : le message est écrit pour vous. Copiez-le ou envoyez-le sur WhatsApp.</p>
+    <div class="grid">
+      <div class="f full"><label for="m-s">Situation</label><select id="m-s"><option value="confirm">Confirmer un rendez-vous</option><option value="retard">Prévenir d’un retard</option><option value="devis">Envoyer mon devis</option><option value="avis">Demander un avis après la mission</option><option value="reponse">Répondre à une demande</option></select></div>
+      <div class="f"><label for="m-c">Prénom du client</label><input id="m-c" placeholder="Ex. Sophie"></div>
+      <div class="f"><label for="m-me">Mon prénom</label><input id="m-me" placeholder="Ex. Fatima"></div>
+      <div class="f full"><label for="m-w">Jour et heure <small>(facultatif)</small></label><input id="m-w" placeholder="Ex. mardi à 14 h"></div>
+      <div class="f full"><label for="m-out">Votre message</label><textarea id="m-out" class="gen" readonly></textarea></div>
+    </div>
+    <div class="tbtns"><button class="btn" type="button" id="m-copy">Copier le message</button><a class="btn ghost" id="m-wa" href="#" target="_blank" rel="noopener">Envoyer sur WhatsApp</a></div>
+    <p class="note" id="m-ok" aria-live="polite"></p>
+  </div>
+</div></section>
+
+<section class="ambass" id="ambassadeurs"><div class="wrap">
+  <h2>Devenez ambassadeur WeJoob</h2>
+  <p class="lead">Les ambassadeurs sont les professionnels qui nous accompagnent dès le début : ils testent, donnent leur avis et font connaître WeJoob autour d’eux. En retour, ils profitent d’avantages de lancement, selon les conditions communiquées.</p>
+  <div class="cards">
+    <div class="card"><span class="ic" aria-hidden="true">🎁</span><h3>Ce que vous recevez</h3><p>Un badge ambassadeur sur votre profil, une première mission sans frais de plateforme et des invitations prioritaires à nos rencontres.</p></div>
+    <div class="card"><span class="ic" aria-hidden="true">💬</span><h3>Ce que vous faites</h3><p>Vous essayez WeJoob, vous nous dites franchement ce qui marche ou non, et vous en parlez à vos collègues de confiance.</p></div>
+    <div class="card"><span class="ic" aria-hidden="true">🧰</span><h3>Des outils en priorité</h3><p>Vous découvrez en premier les nouveaux outils de l’espace professionnel, dès qu’ils sont prêts.</p></div>
+  </div>
+  <p style="margin:26px 0 38px"><a class="btn" href="#inscription">Devenir ambassadeur</a></p>
+
+  <form class="sub" name="parrainage" method="POST" id="form-par">
+    <p class="hp"><label>Ne pas remplir <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
+    <div class="f full"><h3>Vous connaissez un professionnel de confiance ?</h3><p style="margin:6px 0 0;color:var(--mute)">Recommandez-le : un bon collègue, c’est la meilleure façon de bâtir un réseau solide.</p></div>
+    <div class="f"><label for="par-v">Votre prénom</label><input id="par-v" name="parrain_prenom" required></div>
+    <div class="f"><label for="par-vt">Votre téléphone</label><input id="par-vt" name="parrain_telephone" type="tel" required></div>
+    <div class="f"><label for="par-p">Prénom de la personne recommandée</label><input id="par-p" name="recommande_prenom" required></div>
+    <div class="f"><label for="par-pt">Son téléphone</label><input id="par-pt" name="recommande_telephone" type="tel" required></div>
+    <div class="f full"><label for="par-m">Son métier</label>
+      <select id="par-m" name="recommande_metier" required><option value="">Choisir…</option><option>Ménage et repassage</option><option>Jardinage</option><option>Petits travaux / bricolage</option><option>Aide au déménagement</option><option>Aide à domicile</option><option>Autre</option></select></div>
+    <label class="consent full"><input type="checkbox" name="accord" value="oui" required><span>Cette personne est d’accord pour être contactée par WeJoob.</span></label>
+    <div class="f full"><button class="btn" type="submit" id="send-par">Recommander cette personne</button></div>
+    <div class="msg" id="msg-par" role="status" aria-live="polite"></div>
+  </form>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Nos engagements</h2>
+  <p class="lead">Ce que nous nous engageons à respecter, avec vous.</p>
+  <div class="cards four">
+    <div class="card"><span class="ic" aria-hidden="true">🤝</span><h3>Respect</h3><p>Votre travail est reconnu. Vous restez libre de vos choix.</p></div>
+    <div class="card"><span class="ic" aria-hidden="true">💬</span><h3>Simplicité</h3><p>Des mots clairs, des écrans simples et une vraie personne à qui parler.</p></div>
+    <div class="card"><span class="ic" aria-hidden="true">🔍</span><h3>Transparence</h3><p>Vous connaissez les frais avant de vous engager. Pas de surprise.</p></div>
+    <div class="card"><span class="ic" aria-hidden="true">🛡️</span><h3>Confiance</h3><p>Des professionnels vérifiés et des paiements sécurisés, pour vous comme pour les clients.</p></div>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap two">
+  <div>
+    <h2>Pour qui ?</h2>
+    <p class="lead" style="margin-bottom:16px">Pour celles et ceux qui rendent service aux particuliers, à Suresnes et aux alentours : femmes et hommes de ménage, jardiniers, bricoleurs, déménageurs, aides à domicile…</p>
+    <ul class="checks">
+      <li>Vous n’avez pas besoin d’être à l’aise avec les outils numériques</li>
+      <li>Vous pouvez débuter ou exercer depuis des années</li>
+      <li>Pas encore de statut d’indépendant ? Dites-le-nous, nous en parlerons ensemble</li>
+    </ul>
+  </div>
+  <div class="quote">
+    <h3 style="margin-bottom:10px">Notre idée</h3>
+    <p>Les personnes qui rendent service près de chez elles méritent des outils aussi simples qu’elles sont utiles.</p>
+    <p>WeJoob se construit avec elles, étape par étape. Les premiers inscrits sont les premiers à tester, à donner leur avis et à bénéficier d’avantages de lancement.</p>
+    <p style="margin:0"><strong>L’équipe WeJoob</strong></p>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Conseils pratiques</h2>
+  <p class="lead">Trois réflexes simples qui aident à bien travailler et à garder la confiance de vos clients.</p>
+  <div class="cards">
+    <div class="card"><h3>Fixer un prix juste</h3><p>Comptez vos heures, vos déplacements et vos cotisations avant de donner un prix. L’outil « Mon prix de l’heure » vous aide à y voir clair.</p></div>
+    <div class="card"><h3>Toujours écrire</h3><p>Un devis signé avant la mission protège le client et vous. Notez ce qui est compris et ce qui ne l’est pas.</p></div>
+    <div class="card"><h3>Soigner le premier rendez-vous</h3><p>Confirmez l’adresse, l’heure et ce qu’il faut apporter. Prévenez en cas de retard : un client prévenu est un client rassuré.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Comment ça se passe</h2>
+  <p class="lead">Quatre étapes, sans paperasse compliquée.</p>
+  <ol class="checks" style="counter-reset:s">
+    <li><strong>Vous vous inscrivez</strong> ci-dessous, en 2 minutes.</li>
+    <li><strong>Nous vous appelons</strong> pour faire connaissance et répondre à vos questions.</li>
+    <li><strong>Nous vérifions ensemble</strong> les informations utiles (identité, activité, assurance).</li>
+    <li><strong>Vous êtes prévenu(e)</strong> dès que WeJoob est prête à être essayée.</li>
+  </ol>
+</div></section>
+
+<section class="alt" id="inscription"><div class="wrap">
+  <h2>Je m’inscris</h2>
+  <p class="lead">C’est gratuit et sans engagement. Laissez-nous vos coordonnées, nous vous rappelons.</p>
+  <form class="sub" name="inscription-pro" method="POST" id="form">
+    <p class="hp"><label>Ne pas remplir <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
+    <div class="f full"><p class="prog" id="stepno" style="margin:0 0 8px"></p><div class="barbg"><div class="bar" id="bar"></div></div></div>
+    <div class="step" data-step>
+      <div class="f"><label for="prenom">Prénom</label><input id="prenom" name="prenom" autocomplete="given-name" required></div>
+      <div class="f"><label for="nom">Nom</label><input id="nom" name="nom" autocomplete="family-name" required></div>
+      <div class="f"><label for="tel">Téléphone</label><input id="tel" name="telephone" type="tel" autocomplete="tel" required></div>
+      <div class="f"><label for="email">E-mail <small>(facultatif)</small></label><input id="email" name="email" type="email" autocomplete="email"></div>
+      <div class="f full"><button class="btn" type="button" id="next">Continuer</button></div>
+    </div>
+    <div class="step" data-step>
+      <div class="f"><label for="metier">Mon activité</label>
+        <select id="metier" name="activite" required><option value="">Choisir…</option><option>Ménage et repassage</option><option>Jardinage</option><option>Petits travaux / bricolage</option><option>Aide au déménagement</option><option>Aide à domicile</option><option>Autre service de proximité</option></select></div>
+      <div class="f"><label for="zone">Ma commune</label><input id="zone" name="commune" placeholder="Ex. Suresnes" required></div>
+      <div class="f full"><label for="statut">Mon statut aujourd’hui</label>
+        <select id="statut" name="statut" required><option value="">Choisir…</option><option>Je suis micro-entrepreneur</option><option>J’ai une autre entreprise</option><option>Je suis en train de créer mon activité</option><option>Je n’ai pas encore de statut et j’aimerais être aidé(e)</option></select></div>
+      <label class="consent full" style="color:var(--navy);font-weight:700"><input type="checkbox" name="ambassadeur" value="oui"><span>Je souhaite devenir ambassadeur WeJoob</span></label>
+      <div class="f full"><label for="message">Un mot pour nous <small>(facultatif)</small></label><textarea id="message" name="message" placeholder="Depuis quand faites-vous ce métier ? Une question ?"></textarea></div>
+      <label class="consent full"><input type="checkbox" name="consentement" value="oui" required><span>J’accepte que WeJoob utilise ces informations pour me recontacter au sujet de WeJoob. Je peux demander à les consulter, les corriger ou les supprimer à tout moment.</span></label>
+      <div class="f full" style="flex-direction:row;gap:12px;flex-wrap:wrap"><button class="btn ghost" type="button" id="prev">Retour</button><button class="btn" type="submit" id="send">Envoyer mon inscription</button></div>
+    </div>
+    <div class="msg" id="msg" role="status" aria-live="polite"></div>
+  </form>
+</div></section>
+
+<section id="habitants"><div class="wrap">
+  <h2>Vous cherchez quelqu’un de confiance ?</h2>
+  <p class="lead">WeJoob ouvrira bientôt aux habitants de Suresnes. Laissez-nous votre e-mail : nous vous prévenons dès que vous pouvez réserver.</p>
+  <form class="sub" name="liste-attente-habitants" method="POST" id="form-hab">
+    <p class="hp"><label>Ne pas remplir <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
+    <div class="f"><label for="hab-p">Prénom</label><input id="hab-p" name="prenom" autocomplete="given-name" required></div>
+    <div class="f"><label for="hab-e">E-mail</label><input id="hab-e" name="email" type="email" autocomplete="email" required></div>
+    <div class="f"><label for="hab-c">Commune</label><input id="hab-c" name="commune" placeholder="Ex. Suresnes"></div>
+    <div class="f"><label for="hab-s">Service recherché</label>
+      <select id="hab-s" name="service"><option value="">Choisir…</option><option>Ménage et repassage</option><option>Jardinage</option><option>Petits travaux / bricolage</option><option>Aide au déménagement</option><option>Aide à domicile</option><option>Autre</option></select></div>
+    <label class="consent full"><input type="checkbox" name="consentement" value="oui" required><span>J’accepte d’être prévenu(e) de l’ouverture de WeJoob. Je peux me désinscrire à tout moment.</span></label>
+    <div class="f full"><button class="btn" type="submit" id="send-hab">Me prévenir de l’ouverture</button></div>
+    <div class="msg" id="msg-hab" role="status" aria-live="polite"></div>
+  </form>
+</div></section>
+
+<section class="invest" id="investisseurs"><div class="wrap">
+  <h2>Vous souhaitez investir dans WeJoob ?</h2>
+  <p class="lead">WeJoob construit un service de proximité utile aux professionnels et aux habitants. Si le projet vous parle, répondez à ce court questionnaire : il nous aide à comprendre ce que vous recherchez avant de vous recontacter.</p>
+  <form class="sub" name="investisseur" method="POST" id="form-inv">
+    <p class="hp"><label>Ne pas remplir <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
+    <fieldset class="grp"><legend>1. Êtes-vous intéressé(e) par WeJoob ?</legend><div class="rcards">
+      <label class="rc"><input type="radio" name="interet" value="Très intéressé(e) : je souhaite échanger rapidement" required><span>🔥 Très intéressé(e)<small>Je souhaite échanger rapidement</small></span></label>
+      <label class="rc"><input type="radio" name="interet" value="Intéressé(e) : j’aimerais en savoir plus"><span>👍 Intéressé(e)<small>J’aimerais en savoir plus</small></span></label>
+      <label class="rc"><input type="radio" name="interet" value="Je souhaite d’abord suivre le projet"><span>👀 Je suis le projet<small>Je reviendrai plus tard</small></span></label>
+    </div></fieldset>
+    <fieldset class="grp"><legend>2. Vous êtes…</legend><div class="rcards">
+      <label class="rc"><input type="radio" name="type_investisseur" value="Business angel" required><span>Business angel<small>Investit à titre personnel</small></span></label>
+      <label class="rc"><input type="radio" name="type_investisseur" value="Partenaire stratégique"><span>Partenaire stratégique<small>Apporte réseau, expertise ou clients</small></span></label>
+      <label class="rc"><input type="radio" name="type_investisseur" value="Fonds d’investissement"><span>Fonds d’investissement<small>Capital-amorçage, capital-risque</small></span></label>
+      <label class="rc"><input type="radio" name="type_investisseur" value="Family office"><span>Family office<small>Structure patrimoniale familiale</small></span></label>
+      <label class="rc"><input type="radio" name="type_investisseur" value="Particulier"><span>Particulier<small>Investisseur individuel</small></span></label>
+      <label class="rc"><input type="radio" name="type_investisseur" value="Entreprise ou mécène"><span>Entreprise ou mécène<small>Soutien d’une organisation</small></span></label>
+      <label class="rc"><input type="radio" name="type_investisseur" value="Autre"><span>Autre</span></label>
+    </div></fieldset>
+    <div class="f full"><label for="inv-range">3. Montant envisagé : <span class="out" id="inv-out"></span></label>
+      <input type="range" id="inv-range" min="5000" max="500000" step="5000" value="25000">
+      <label class="opt" style="margin-top:6px"><input type="checkbox" id="inv-disc">Je préfère en discuter</label>
+      <input type="hidden" name="montant_envisage" id="inv-montant"></div>
+    <fieldset class="opts full" style="border:0;padding:0;margin:0;min-width:0"><legend>4. Qu’est-ce qui vous attire ? <small style="font-weight:400">(plusieurs choix possibles)</small></legend>
+      <label class="opt"><input type="checkbox" name="attirance" value="Impact local et emploi">Impact local et soutien aux professionnels</label>
+      <label class="opt"><input type="checkbox" name="attirance" value="Rendement">Le potentiel de rendement</label>
+      <label class="opt"><input type="checkbox" name="attirance" value="Marché des services de proximité">Le marché des services de proximité</label>
+      <label class="opt"><input type="checkbox" name="attirance" value="Technologie">La plateforme et la technologie</label>
+      <label class="opt"><input type="checkbox" name="attirance" value="Accompagner une jeune entreprise">Accompagner une jeune entreprise</label>
+      <label class="opt"><input type="checkbox" name="attirance" value="Autre">Autre</label>
+    </fieldset>
+    <div class="f"><label for="inv-obj">Votre objectif principal</label>
+      <select id="inv-obj" name="objectif" required><option value="">Choisir…</option><option>Rendement financier</option><option>Impact social et local</option><option>Les deux à la fois</option><option>Participation stratégique au projet</option><option>Autre</option></select></div>
+    <div class="f"><label for="inv-horizon">Horizon d’investissement</label>
+      <select id="inv-horizon" name="horizon"><option value="">Choisir…</option><option>Moins de 2 ans</option><option>De 2 à 5 ans</option><option>Plus de 5 ans</option><option>Je ne sais pas encore</option></select></div>
+    <div class="f"><label for="inv-role">Votre rôle souhaité</label>
+      <select id="inv-role" name="role"><option value="">Choisir…</option><option>Investisseur discret</option><option>Investisseur avec conseils et réseau</option><option>Investisseur impliqué dans le projet</option></select></div>
+    <div class="f"><label for="inv-dispo">Pour un premier échange</label>
+      <select id="inv-dispo" name="disponibilite"><option value="">Choisir…</option><option>Cette semaine</option><option>Ce mois-ci</option><option>Plus tard</option></select></div>
+    <div class="f full"><label for="inv-pourquoi">Pourquoi souhaitez-vous investir dans WeJoob ?</label><textarea id="inv-pourquoi" name="pourquoi" required placeholder="Quelques lignes sur ce qui vous motive."></textarea></div>
+    <div class="f"><label for="inv-prenom">Prénom</label><input id="inv-prenom" name="prenom" autocomplete="given-name" required></div>
+    <div class="f"><label for="inv-nom">Nom</label><input id="inv-nom" name="nom" autocomplete="family-name" required></div>
+    <div class="f"><label for="inv-email">E-mail</label><input id="inv-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="f"><label for="inv-tel">Téléphone <small>(facultatif)</small></label><input id="inv-tel" name="telephone" type="tel" autocomplete="tel"></div>
+    <div class="f full"><label for="inv-struct">Votre structure <small>(facultatif)</small></label><input id="inv-struct" name="structure"></div>
+    <div class="f full"><label for="inv-msg">Une question ou un message <small>(facultatif)</small></label><textarea id="inv-msg" name="message"></textarea></div>
+    <label class="consent full"><input type="checkbox" name="consentement" value="oui" required><span>J’accepte que WeJoob utilise ces informations pour me recontacter au sujet de ce projet. Je peux demander à les consulter, les corriger ou les supprimer à tout moment.</span></label>
+    <div class="f full"><button class="btn" type="submit" id="send-inv">Envoyer mes réponses</button></div>
+    <div class="msg" id="msg-inv" role="status" aria-live="polite"></div>
+  </form>
+  <p class="legal">Ce questionnaire permet de nous faire part de votre intérêt. Il ne constitue ni une offre, ni une sollicitation d’investissement, et ne vous engage à rien.</p>
+</div></section>
+
+<section id="equipe"><div class="wrap">
+  <h2>Rejoindre l’équipe WeJoob</h2>
+  <p class="lead">Vous avez envie de participer à la construction de WeJoob ? Envoyez-nous une candidature spontanée avec votre CV. Nous lisons chaque message avec attention.</p>
+  <form class="sub" name="candidature-equipe" method="POST" enctype="multipart/form-data" id="form-team">
+    <p class="hp"><label>Ne pas remplir <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
+    <div class="f"><label for="eq-prenom">Prénom</label><input id="eq-prenom" name="prenom" autocomplete="given-name" required></div>
+    <div class="f"><label for="eq-nom">Nom</label><input id="eq-nom" name="nom" autocomplete="family-name" required></div>
+    <div class="f"><label for="eq-email">E-mail</label><input id="eq-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="f"><label for="eq-tel">Téléphone <small>(facultatif)</small></label><input id="eq-tel" name="telephone" type="tel" autocomplete="tel"></div>
+    <div class="f"><label for="eq-domaine">Domaine qui vous intéresse</label>
+      <select id="eq-domaine" name="domaine" required>
+        <option value="">Choisir…</option>
+        <option>Développement / technique</option>
+        <option>Design / expérience utilisateur</option>
+        <option>Marketing / communication</option>
+        <option>Relation avec les professionnels</option>
+        <option>Finance / gestion</option>
+        <option>Juridique / conformité</option>
+        <option>Autre</option>
+      </select></div>
+    <div class="f"><label for="eq-type">Type de collaboration recherchée</label>
+      <select id="eq-type" name="collaboration" required>
+        <option value="">Choisir…</option>
+        <option>Stage</option>
+        <option>Alternance</option>
+        <option>Mission freelance</option>
+        <option>Poste salarié</option>
+        <option>Autre</option>
+      </select></div>
+    <div class="f full"><label for="eq-pourquoi">Pourquoi WeJoob ?</label><textarea id="eq-pourquoi" name="motivation" required placeholder="Quelques lignes sur ce qui vous donne envie de nous rejoindre."></textarea></div>
+    <div class="f"><label for="eq-link">Profil LinkedIn <small>(facultatif)</small></label><input id="eq-link" name="linkedin" type="url" placeholder="https://"></div>
+    <div class="f"><label for="eq-cv">Votre CV <small>(PDF ou Word, 5 Mo maximum)</small></label><input id="eq-cv" name="cv" type="file" accept=".pdf,.doc,.docx" required></div>
+    <label class="consent full"><input type="checkbox" name="consentement" value="oui" required><span>J’accepte que WeJoob conserve ma candidature et mon CV pour l’étudier et me recontacter. Je peux demander leur suppression à tout moment.</span></label>
+    <div class="f full"><button class="btn" type="submit" id="send-team">Envoyer ma candidature</button></div>
+    <div class="msg" id="msg-team" role="status" aria-live="polite"></div>
+  </form>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Vos questions</h2>
+  <div style="margin-top:18px">
+    <details><summary>Est-ce un emploi ?</summary><p>Non. Vous restez indépendant(e) et libre de votre activité. WeJoob n’est pas un employeur.</p></details>
+    <details><summary>Est-ce que ça coûte quelque chose ?</summary><p>Non, s’inscrire et utiliser les outils du site est gratuit. Pour les premiers inscrits, la première mission réalisée et payée via WeJoob est sans frais de plateforme, selon les conditions qui vous seront expliquées. Les frais des missions suivantes vous sont communiqués avant que vous choisissiez de continuer.</p></details>
+    <details><summary>Est-ce que j’aurai des clients ?</summary><p>WeJoob ne peut pas le garantir : le service est en préparation. Votre aide est précieuse pour le tester, dire ce qui est utile et l’améliorer.</p></details>
+    <details><summary>Je ne suis pas à l’aise avec les applications. Est-ce un problème ?</summary><p>Non. Nous voulons que WeJoob soit simple, et nous vous accompagnons pour la prendre en main.</p></details>
+    <details><summary>Que deviennent mes informations ?</summary><p>Elles servent uniquement à vous recontacter au sujet de WeJoob. Vous pouvez demander à les consulter, les corriger ou les supprimer à tout moment.</p></details>
+  </div>
+</div></section>
+<section class="alt" id="contact"><div class="wrap">
+  <h2>Une question ?</h2>
+  <p class="lead">Écrivez-nous, nous répondons à chaque message.</p>
+  <form class="sub" name="contact" method="POST" id="form-ct">
+    <p class="hp"><label>Ne pas remplir <input name="_honey" tabindex="-1" autocomplete="off"></label></p>
+    <div class="f"><label for="ct-n">Prénom</label><input id="ct-n" name="prenom" required></div>
+    <div class="f"><label for="ct-j">Téléphone ou e-mail</label><input id="ct-j" name="contact" required></div>
+    <div class="f full"><label for="ct-m">Votre message</label><textarea id="ct-m" name="message" required></textarea></div>
+    <div class="f full"><button class="btn" type="submit" id="send-ct">Envoyer</button></div>
+    <div class="msg" id="msg-ct" role="status" aria-live="polite"></div>
+  </form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="flinks"><a href="#inscription">Professionnels</a><a href="#ambassadeurs">Ambassadeurs</a><a href="#habitants">Habitants</a><a href="#investisseurs">Investisseurs</a><a href="#equipe">Équipe</a><a href="#contact">Contact</a></p>
+  <p><strong>WeJoob</strong> — des services de proximité, à Suresnes.</p>
+  <p>WeJoob est en phase de développement. L’inscription ne garantit ni clients, ni missions, ni revenus. Les avantages sont soumis aux conditions communiquées aux participants.</p>
+  <!-- À compléter avant mise en ligne : e-mail de contact, raison sociale, mentions légales -->
+</div></footer>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var eur=new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR',maximumFractionDigits:0});
+  var pct=function(r){return (r*100).toLocaleString('fr-FR',{maximumFractionDigits:1})+' %'};
+  var n=function(id){var v=parseFloat($(id).value);return isNaN(v)||v<0?0:v};
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+  // Onglets
+  var tabs=document.querySelectorAll('[role=tab]');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);$(x.getAttribute('aria-controls')).hidden=!on});
+  })});
+
+  // Outil 1 : prix de l'heure
+  function calcA(){
+    var r=parseFloat($('a-t').value),h=n('a-h'),net=n('a-net'),f=n('a-f'),box=$('a-res');
+    if(!h||!net){box.className='res';return}
+    var ca=(net+f)/(1-r),tarif=ca/h;
+    box.className='res on';
+    box.innerHTML='<div class="big">'+eur.format(Math.ceil(tarif))+' de l’heure</div><p>Pour gagner <strong>'+eur.format(net)+'</strong> par mois, il faut facturer environ <strong>'+eur.format(Math.round(ca))+'</strong> sur le mois. Sur ce montant, environ <strong>'+eur.format(Math.round(ca*r))+'</strong> partent en cotisations ('+pct(r)+') et <strong>'+eur.format(f)+'</strong> en frais.</p>';
+  }
+  // Outil 2 : ce qu'il reste
+  function calcB(){
+    var r=parseFloat($('b-t').value),ca=n('b-ca'),f=n('b-f'),box=$('b-res');
+    if(!ca){box.className='res';return}
+    var cot=ca*r,reste=ca-cot-f;
+    box.className='res on';
+    box.innerHTML='<div class="big">'+eur.format(Math.round(reste))+' pour vous</div><p>Sur <strong>'+eur.format(ca)+'</strong> encaissés : environ <strong>'+eur.format(Math.round(cot))+'</strong> de cotisations ('+pct(r)+') et <strong>'+eur.format(f)+'</strong> de frais.</p>';
+  }
+  ['a-net','a-h','a-f','a-t'].forEach(function(i){$(i).addEventListener('input',calcA)});
+  ['b-ca','b-f','b-t'].forEach(function(i){$(i).addEventListener('input',calcB)});
+  calcA();calcB();
+
+  // Outil 3 : devis
+  $('d-go').addEventListener('click',function(){
+    var fact=$('d-type').value==='f',h=n('d-h'),p=n('d-p'),fr=n('d-fr'),tot=h*p+fr,d=new Date(),
+        num=(fact?'F-':'D-')+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0'),
+        fmt=new Intl.NumberFormat('fr-FR',{style:'currency',currency:'EUR'}),
+        rows='<tr><td>'+esc($('d-desc').value||'Prestation')+'</td><td class="r">'+h.toLocaleString('fr-FR')+' h</td><td class="r">'+fmt.format(p)+'</td><td class="r">'+fmt.format(h*p)+'</td></tr>';
+    if(fr)rows+='<tr><td>Déplacement ou matériel</td><td class="r">1</td><td class="r">'+fmt.format(fr)+'</td><td class="r">'+fmt.format(fr)+'</td></tr>';
+    $('devis-out').className='on';
+    $('devis-out').innerHTML='<h3>'+(fact?'Facture':'Devis')+' n° '+num+'</h3><p>Date : '+d.toLocaleDateString('fr-FR')+'</p>'
+      +'<p><strong>'+esc($('d-me').value||'Prestataire')+'</strong>'+($('d-siret').value?'<br>SIRET : '+esc($('d-siret').value):'')+($('d-tel').value?'<br>Tél. : '+esc($('d-tel').value):'')+'</p>'
+      +'<p><strong>Client :</strong> '+esc($('d-cl').value||'—')+($('d-adr').value?'<br>Adresse de la mission : '+esc($('d-adr').value):'')+'</p>'
+      +'<table><thead><tr><th>Prestation</th><th class="r">Quantité</th><th class="r">Prix unitaire</th><th class="r">Total</th></tr></thead><tbody>'+rows+'</tbody></table>'
+      +'<p style="font-size:20px"><strong>Total à payer : '+fmt.format(tot)+'</strong></p>'
+      +($('d-tva').checked?'<p>TVA non applicable, art. 293 B du CGI.</p>':'')
+      +(fact?'<p>À régler à réception de la facture. Mode de paiement : …………………</p>':'<p>Devis valable '+(n('d-v')||30)+' jours.</p><p>Bon pour accord, date et signature du client :</p><p style="height:60px"></p>');
+    $('d-print').style.display='block';
+    $('devis-out').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+
+  // Carnet de missions (stockage local)
+  var KEY='wj-carnet',rows=[];
+  try{rows=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){rows=[]}
+  function saveRows(){try{localStorage.setItem(KEY,JSON.stringify(rows))}catch(e){}}
+  function drawRows(){
+    var tb=$('c-body'),ca=0,fr=0;tb.innerHTML='';
+    rows.forEach(function(r,i){
+      ca+=r.m;fr+=r.f;
+      var tr=document.createElement('tr'),dt=r.d?new Date(r.d+'T00:00:00').toLocaleDateString('fr-FR'):'—';
+      tr.innerHTML='<td>'+esc(dt)+'</td><td>'+esc(r.c||'—')+'</td><td class="r">'+eur.format(r.m)+'</td><td class="r">'+eur.format(r.f)+'</td><td><button type="button" class="lnk" data-i="'+i+'" aria-label="Supprimer cette ligne">✕</button></td>';
+      tb.appendChild(tr);
+    });
+    var box=$('c-sum');
+    if(!rows.length){box.className='res';box.innerHTML='';return}
+    box.className='res on';
+    box.innerHTML='<div class="big">'+eur.format(Math.round(ca-ca*0.212-fr))+' estimés pour vous</div><p>'+rows.length+' mission(s) · '+eur.format(ca)+' encaissés · '+eur.format(fr)+' de frais · environ '+eur.format(Math.round(ca*0.212))+' de cotisations.</p>';
+  }
+  $('c-d').valueAsDate=new Date();
+  $('c-add').addEventListener('click',function(){
+    var m=n('c-m');if(!m){$('c-m').focus();return}
+    rows.push({d:$('c-d').value,c:$('c-c').value,m:m,f:n('c-f')});
+    saveRows();drawRows();$('c-c').value='';$('c-m').value='';$('c-f').value='';
+  });
+  $('c-body').addEventListener('click',function(e){
+    var i=e.target.getAttribute&&e.target.getAttribute('data-i');
+    if(i!==null&&i!==undefined){rows.splice(+i,1);saveRows();drawRows()}
+  });
+  $('c-clear').addEventListener('click',function(){if(rows.length&&confirm('Effacer toutes les missions de ce carnet ?')){rows=[];saveRows();drawRows()}});
+  $('c-csv').addEventListener('click',function(){
+    if(!rows.length)return;
+    var csv='\ufeffDate;Client;Montant encaissé;Frais\n'+rows.map(function(r){return [r.d,'"'+(r.c||'').replace(/"/g,'""')+'"',r.m,r.f].join(';')}).join('\n');
+    var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='mes-missions.csv';document.body.appendChild(a);a.click();a.remove();
+  });
+  drawRows();
+
+  // Check-list de démarrage (stockage local)
+  var steps=['Déclarer mon activité sur le guichet des formalités des entreprises (formalites.entreprises.gouv.fr)','Recevoir mon numéro SIRET et créer mon espace sur autoentrepreneur.urssaf.fr','Ouvrir un compte bancaire pour mon activité (recommandé)','Souscrire une assurance responsabilité civile professionnelle','Préparer mes tarifs et un modèle de devis avec les outils ci-dessus','Noter chaque mission dans mon carnet','Déclarer mon chiffre d’affaires à chaque échéance, même s’il est à zéro'],
+      CK='wj-check',st={};
+  try{st=JSON.parse(localStorage.getItem(CK)||'{}')}catch(e){st={}}
+  function drawProg(){var d=steps.filter(function(_,i){return st[i]}).length;$('k-prog').textContent=d+' étape'+(d>1?'s':'')+' sur '+steps.length+' faite'+(d>1?'s':'');}
+  steps.forEach(function(t,i){
+    var l=document.createElement('label'),c=document.createElement('input'),sp=document.createElement('span');
+    l.className='opt';c.type='checkbox';c.checked=!!st[i];sp.textContent=t;
+    c.addEventListener('change',function(){st[i]=c.checked;try{localStorage.setItem(CK,JSON.stringify(st))}catch(e){}drawProg()});
+    l.appendChild(c);l.appendChild(sp);$('k-list').appendChild(l);
+  });
+  drawProg();
+
+  // ===== Envoi des formulaires par e-mail (FormSubmit) =====
+  var ENDPOINT='https://formsubmit.co/ajax/maryemamara42@gmail.com';
+  function toObj(f){var o={};new FormData(f).forEach(function(v,k){if(typeof v!=='string')return;o[k]=o[k]?o[k]+', '+v:v});return o}
+  // Envoi de secours : envoi classique du formulaire (ouvre une page de confirmation FormSubmit)
+  function nativeSend(form,subject,opt,vals){
+    var keep={a:form.getAttribute('action'),m:form.getAttribute('method'),t:form.getAttribute('target'),e:form.getAttribute('enctype')},tmp=[];
+    form.setAttribute('action','https://formsubmit.co/maryemamara42@gmail.com');form.setAttribute('method','POST');form.setAttribute('target','_blank');
+    if(form.querySelector('input[type=file]'))form.setAttribute('enctype','multipart/form-data');
+    [['_subject',subject],['_template','table']].forEach(function(kv){var i=document.createElement('input');i.type='hidden';i.name=kv[0];i.value=kv[1];form.appendChild(i);tmp.push(i)});
+    HTMLFormElement.prototype.submit.call(form);
+    setTimeout(function(){
+      tmp.forEach(function(i){i.remove()});
+      ['action','method','target','enctype'].forEach(function(k,x){var v=[keep.a,keep.m,keep.t,keep.e][x];v===null?form.removeAttribute(k):form.setAttribute(k,v)});
+      if(opt&&opt.done)opt.done(vals);
+    },400);
+  }
+  function wire(formId,btnId,msgId,okText,subject,opt){
+    opt=opt||{};
+    var form=$(formId),btn=$(btnId),msg=$(msgId);
+    form.addEventListener('submit',function(e){
+      e.preventDefault();msg.className='msg';msg.textContent='';
+      var problem=opt.validate?opt.validate(form):'';
+      if(problem){msg.className='msg err';msg.textContent=problem;return}
+      var vals=toObj(form),label=btn.textContent,init;
+      btn.disabled=true;btn.textContent='Envoi en cours…';
+      if(form.querySelector('input[type=file]')){
+        var fd=new FormData(form);fd.append('_subject',subject);fd.append('_template','table');fd.append('_captcha','false');
+        init={method:'POST',headers:{'Accept':'application/json'},body:fd};
+      }else{
+        vals._subject=subject;vals._template='table';vals._captcha='false';
+        init={method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(vals)};
+      }
+      fetch(ENDPOINT,init).then(function(r){return r.json()}).then(function(j){
+        if(!j||(j.success!=='true'&&j.success!==true))throw new Error(j&&j.message?j.message:'réponse inattendue');
+        form.reset();msg.className='msg ok';msg.textContent=okText;
+        if(opt.done)opt.done(vals);
+      }).catch(function(err){
+        msg.className='msg err';
+        var why=location.protocol==='file:'?'Cette page est ouverte depuis un fichier : l’envoi automatique ne fonctionne qu’une fois le site en ligne.':'L’envoi automatique n’a pas abouti'+(err&&err.message?' ('+esc(err.message)+')':'')+'.';
+        msg.innerHTML=why+'<br><button type="button" class="btn ghost" id="alt-'+formId+'" style="min-height:40px;padding:6px 16px;margin-top:10px">Envoyer d’une autre façon</button>';
+        $('alt-'+formId).onclick=function(){nativeSend(form,subject,opt,vals)};
+      })
+        .then(function(){btn.disabled=false;btn.textContent=label});
+    });
+  }
+
+  // ===== Accès membre (outils débloqués après inscription) =====
+  var MK='wj-member';
+  function getMember(){try{return JSON.parse(localStorage.getItem(MK)||'null')}catch(e){return null}}
+  function applyMember(){
+    var m=getMember(),bar=$('memberbar');
+    document.body.classList.toggle('member',!!m);
+    if(m){bar.hidden=false;bar.innerHTML='Bienvenue '+esc(m.p||'')+' 👋 Tous vos outils sont débloqués.'+(m.a?' <span class="badge">★ Ambassadeur WeJoob</span>':'')}else{bar.hidden=true}
+  }
+  function becomeMember(v){try{localStorage.setItem(MK,JSON.stringify({p:v.prenom||'',a:!!v.ambassadeur}))}catch(e){}applyMember()}
+  document.querySelectorAll('.panel[data-lock]').forEach(function(pn){
+    var d=document.createElement('div');d.className='lockmsg';
+    d.innerHTML='<span class="ic" aria-hidden="true">🔒</span><h3>Outil réservé aux professionnels inscrits</h3><p>L’inscription est gratuite et prend 2 minutes. Dès qu’elle est envoyée, tous les outils s’ouvrent ici.</p><a class="btn" href="#inscription">Je m’inscris pour débloquer</a>';
+    pn.insertBefore(d,pn.firstChild);
+  });
+  applyMember();
+
+  // ===== Formulaire professionnel en 2 étapes =====
+  var stepsEl=document.querySelectorAll('#form [data-step]'),cur=0;
+  function showStep(i){cur=i;stepsEl.forEach(function(el,k){el.hidden=k!==i});$('bar').style.width=((i+1)/stepsEl.length*100)+'%';$('stepno').textContent='Étape '+(i+1)+' sur '+stepsEl.length}
+  $('next').addEventListener('click',function(){
+    var ok=true;stepsEl[cur].querySelectorAll('input,select').forEach(function(el){if(ok&&!el.checkValidity()){el.reportValidity();ok=false}});
+    if(ok)showStep(cur+1);
+  });
+  $('prev').addEventListener('click',function(){showStep(cur-1)});
+  showStep(0);
+
+  // ===== Hero : choix du métier =====
+  document.querySelectorAll('.job').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.job').forEach(function(x){x.setAttribute('aria-pressed',x===b)});
+      $('job-txt').textContent=b.getAttribute('data-t');
+      $('job-cta').hidden=false;$('job-cta').textContent='Je m’inscris comme '+b.getAttribute('data-m').toLowerCase();
+      $('metier').value=b.getAttribute('data-m');
+    });
+  });
+
+  // ===== Investisseur : montant =====
+  var rg=$('inv-range'),dc=$('inv-disc');
+  function upMontant(){
+    var v=+rg.value,t=dc.checked?'À discuter':(v>=500000?'500 000 € et plus':eur.format(v));
+    $('inv-out').textContent=t;$('inv-montant').value=t;rg.disabled=dc.checked;
+  }
+  rg.addEventListener('input',upMontant);dc.addEventListener('change',upMontant);
+  $('form-inv').addEventListener('reset',function(){setTimeout(upMontant,0)});
+  upMontant();
+
+  // ===== Messages prêts à envoyer =====
+  var T={
+    confirm:function(c,me,w){return 'Bonjour '+c+', je vous confirme notre rendez-vous'+(w?' '+w:'')+'. Je viendrai avec le nécessaire. N’hésitez pas à me prévenir en cas de changement. À bientôt, '+me},
+    retard:function(c,me){return 'Bonjour '+c+', je vous prie de m’excuser, j’ai un peu de retard. J’arrive dès que possible. Merci de votre compréhension. '+me},
+    devis:function(c,me){return 'Bonjour '+c+', comme convenu, je vous envoie mon devis pour la mission. Il reste valable 30 jours. Je reste disponible pour toute question. Cordialement, '+me},
+    avis:function(c,me){return 'Bonjour '+c+', merci pour votre confiance. J’espère que tout vous a convenu. Si vous êtes satisfait(e), un petit avis m’aiderait beaucoup. Belle journée, '+me},
+    reponse:function(c,me,w){return 'Bonjour '+c+', merci pour votre message. Je suis disponible'+(w?' '+w:' prochainement')+'. Pouvez-vous me préciser l’adresse et ce que vous souhaitez faire ? Je vous réponds avec un prix rapidement. '+me}
+  };
+  function genMsg(){
+    var t=T[$('m-s').value]($('m-c').value||'…',$('m-me').value||'…',$('m-w').value.trim());
+    $('m-out').value=t;$('m-wa').href='https://wa.me/?text='+encodeURIComponent(t);
+  }
+  ['m-s','m-c','m-me','m-w'].forEach(function(i){$(i).addEventListener('input',genMsg)});
+  $('m-copy').addEventListener('click',function(){
+    var o=$('m-out');o.select();
+    var ok=function(){$('m-ok').textContent='Message copié ✔'};
+    (navigator.clipboard?navigator.clipboard.writeText(o.value).then(ok):Promise.reject()).catch(function(){try{document.execCommand('copy');ok()}catch(e){}});
+  });
+  genMsg();
+
+  // ===== Menu mobile + lien actif =====
+  var hd=$('hd'),bg=$('burger');
+  bg.addEventListener('click',function(){var o=hd.classList.toggle('open');bg.setAttribute('aria-expanded',o)});
+  document.querySelectorAll('#nav a').forEach(function(a){a.addEventListener('click',function(){hd.classList.remove('open');bg.setAttribute('aria-expanded',false)})});
+  if('IntersectionObserver' in window){
+    var links={};document.querySelectorAll('#nav a[href^="#"]').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+    var so=new IntersectionObserver(function(en){en.forEach(function(x){
+      var a=links[x.target.id];if(!a||a.classList.contains('btn'))return;
+      if(x.isIntersecting){Object.keys(links).forEach(function(k){links[k].removeAttribute('aria-current')});a.setAttribute('aria-current','true')}
+    })},{rootMargin:'-35% 0px -55% 0px'});
+    Object.keys(links).forEach(function(k){var el=$(k);if(el)so.observe(el)});
+    // apparition douce
+    var rv=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');rv.unobserve(x.target)}})},{threshold:.12});
+    document.querySelectorAll('section h2,section .lead,.card,.three>div,.quote,.checks li,details,.hint').forEach(function(el){el.classList.add('rv');rv.observe(el)});
+  }
+
+  // ===== Branchement des formulaires =====
+  wire('form','send','msg','Merci ! Votre inscription est bien reçue et vos outils sont débloqués dans la rubrique « Outils ». Nous vous rappelons très bientôt.','[WeJoob] Nouvelle inscription professionnel',{done:function(v){becomeMember(v);showStep(0)}});
+  wire('form-par','send-par','msg-par','Merci pour votre recommandation ! Nous contactons cette personne avec respect.','[WeJoob] Recommandation d’un professionnel');
+  wire('form-hab','send-hab','msg-hab','Merci ! Nous vous prévenons dès que WeJoob ouvre.','[WeJoob] Liste d’attente habitant');
+  wire('form-ct','send-ct','msg-ct','Merci pour votre message. Nous vous répondons rapidement.','[WeJoob] Message via le site');
+  wire('form-inv','send-inv','msg-inv','Merci pour votre intérêt. Nous revenons vers vous personnellement.','[WeJoob] 💼 Nouveau contact investisseur');
+  wire('form-team','send-team','msg-team','Merci ! Nous avons bien reçu votre candidature et nous l’étudions avec attention.','[WeJoob] Candidature spontanée (CV)',{validate:function(f){
+    var file=f.elements.cv.files[0];
+    if(!file)return 'Ajoutez votre CV pour envoyer votre candidature.';
+    if(!/\.(pdf|docx?)$/i.test(file.name))return 'Le CV doit être au format PDF ou Word.';
+    if(file.size>5*1024*1024)return 'Votre CV dépasse 5 Mo. Envoyez un fichier plus léger.';
+    return '';
+  }});
+})();
+</script>
+</body>
+</html>
